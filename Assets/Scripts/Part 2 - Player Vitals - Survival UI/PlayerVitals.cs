@@ -1,8 +1,7 @@
-﻿/*SCRIPTS WRITTEN BY SPEEDTUTOR - FREE TUTORIALS AT WWW.SPEED-TUTOR.COM*/
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson; //NEW
 
 public class PlayerVitals : MonoBehaviour
 {
@@ -18,8 +17,21 @@ public class PlayerVitals : MonoBehaviour
     public int maxHunger;
     public int hungerFallRate;
 
+    public Slider staminaSlider; //NEW
+    public int maxStamina; //NEW
+    private int staminaFallRate; //NEW
+    public int staminaFallMult; //NEW
+    private int staminaRegainRate; //NEW
+    public int staminaRegainMult; //NEW
+
+    private CharacterController charController; //NEW
+    private FirstPersonController playerController; //NEW
+
     void Start()
     {
+        charController = GetComponent<CharacterController>(); //NEW
+        playerController = GetComponent<FirstPersonController>(); //NEW
+
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth;
 
@@ -28,11 +40,17 @@ public class PlayerVitals : MonoBehaviour
 
         hungerSlider.maxValue = maxHunger;
         hungerSlider.value = maxHunger;
+
+        staminaSlider.maxValue = maxStamina; //NEW
+        staminaSlider.value = maxStamina; //NEW
+
+        staminaFallRate = 1; //NEW
+        staminaRegainRate = 1; //NEW
     }
 
     void Update()
     {
-        //HEALTH CONTROL SECTION
+        //HEALTH CONTROLLER
         if (hungerSlider.value <= 0 && (thirstSlider.value <= 0))
         {
             healthSlider.value -= Time.deltaTime / healthFallRate * 2;
@@ -48,7 +66,7 @@ public class PlayerVitals : MonoBehaviour
             CharacterDeath();
         }
 
-        //HUNGER CONTROL SECTION
+        //HUNGER CONTROLLER
         if (hungerSlider.value >= 0)
         {
             hungerSlider.value -= Time.deltaTime / hungerFallRate;
@@ -64,7 +82,7 @@ public class PlayerVitals : MonoBehaviour
             hungerSlider.value = maxHunger;
         }
 
-        //THIRST CONTROL SECTION
+        //THIRST CONTROLLER
         if (thirstSlider.value >= 0)
         {
             thirstSlider.value -= Time.deltaTime / thirstFallRate;
@@ -79,10 +97,38 @@ public class PlayerVitals : MonoBehaviour
         {
             thirstSlider.value = maxThirst;
         }
+
+        //STAMINA CONTROL SECTION
+
+        if (charController.velocity.magnitude > 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+            staminaSlider.value -= Time.deltaTime / staminaFallRate * staminaFallMult;
+        }
+
+        else
+        {
+            staminaSlider.value += Time.deltaTime / staminaRegainRate * staminaRegainMult;
+        }
+
+        if (staminaSlider.value >= maxStamina)
+        {
+            staminaSlider.value = maxStamina;
+        }
+
+        else if (staminaSlider.value <= 0)
+        {
+            staminaSlider.value = 0;
+            playerController.m_RunSpeed = playerController.m_WalkSpeed;
+        }
+
+        else if (staminaSlider.value >= 0)
+        {
+            playerController.m_RunSpeed = playerController.m_RunSpeedNorm;
+        }
     }
 
     void CharacterDeath()
     {
-            //DEATH
+        //DO SOMETHING HERE!
     }
 }
