@@ -114,6 +114,10 @@
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryEditor.cs" />
     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\ItemScripts\eat.cs" />
+    <Compile Include="Assets\Scripts\ItemScripts\pickup.cs" />
+    <Compile Include="Assets\Scripts\ItemScripts\respawn.cs" />
+    <Compile Include="Assets\Scripts\ItemScripts\spawnFruit.cs" />
     <Compile Include="Assets\Scripts\Part 2 - Player Vitals - Survival UI\PlayerVitals.cs" />
     <Compile Include="Assets\Utility\ActivateTrigger.cs" />
     <Compile Include="Assets\Utility\AlphaButtonClickMask.cs" />
