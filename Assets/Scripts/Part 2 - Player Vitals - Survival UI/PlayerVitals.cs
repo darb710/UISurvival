@@ -127,6 +127,15 @@ public class PlayerVitals : MonoBehaviour
         }
     }
 
+    public void eatFood(GameObject obj)
+    {
+        if(obj.tag == "coconut")
+        {
+            hungerSlider.value += 15;
+        }
+    }
+
+
     void CharacterDeath()
     {
         //DO SOMETHING HERE!

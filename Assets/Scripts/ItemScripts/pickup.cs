@@ -18,6 +18,7 @@ public class pickup : MonoBehaviour
 		 		string c = child.Find("Text").GetComponent<Text>().text;
 		 		int tcount = System.Int32.Parse(c) + 1;
 	  			child.Find("Text").GetComponent<Text>().text = "" + tcount;
+                Destroy(collision.gameObject);
 		 		return;
 		 	}
 		 }

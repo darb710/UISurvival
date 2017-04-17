@@ -8,7 +8,7 @@ public class respawn : MonoBehaviour {
     void OnCollisionEnter()
     {
 
-        Destroy(gameObject);
+        Destroy(this.gameObject);
 	}
 
 	// Use this for initialization
